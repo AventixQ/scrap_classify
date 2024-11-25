@@ -1,5 +1,6 @@
 .env
 creds.json
+myenv/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
