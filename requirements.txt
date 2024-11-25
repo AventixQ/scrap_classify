@@ -1,0 +1,8 @@
+bs4
+requests
+gspread
+python-dotenv
+pandas
+transformers
+openpyxl
+torch
