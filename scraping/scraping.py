@@ -5,15 +5,22 @@ from gpt_classification import classify
 import os
 
 gc = gspread.service_account(filename=os.getenv("CREDS_FILE"))
-sh = gc.open("EBE25-Matrix").sheet1
+
+##############################################################
+################## Choose your google sheet ##################
+##############################################################
+sh = gc.open("EBE25-Matrix").worksheet("Company")
+#sh = gc.open("EBE25-Matrix-BigData").worksheet("Company")
+##############################################################
+start_value = 2
+end_value = 11
+##############################################################
+##############################################################
 
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
     "Accept-Language": "en-US,en;q=0.9",
 }
-
-start_value = 2
-end_value = 7
 
 for i in range(start_value, end_value+1):
     name = sh.acell("c"+str(i)).value
@@ -30,7 +37,7 @@ for i in range(start_value, end_value+1):
 
         response = classify(clean_text)
         #print(response)
-        sh.update_acell("g"+str(i),response)
+        sh.update_acell("d"+str(i),response)
 
     else:
         print(f"Nie udało się pobrać strony. Kod statusu: {response.status_code}")

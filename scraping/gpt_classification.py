@@ -195,4 +195,4 @@ def classify(text):
     response = completion.choices[0].message.content.strip()
     return response
 
-print(classify("Shop for kids. kid kid kid shoooppp"))
+#print(classify("Shop for kids. kid kid kid shoooppp"))
