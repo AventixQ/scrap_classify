@@ -3,17 +3,19 @@ from bs4 import BeautifulSoup
 import gspread
 from gpt_classification import classify
 import os
+import time
 
 gc = gspread.service_account(filename=os.getenv("CREDS_FILE"))
 
 ##############################################################
 ################## Choose your google sheet ##################
 ##############################################################
-sh = gc.open("EBE25-Matrix").worksheet("Company")
+#sh = gc.open("EBE25-Matrix").worksheet("Company")
 #sh = gc.open("EBE25-Matrix-BigData").worksheet("Company")
+sh = gc.open("INDUSTRY_CLASSIFICATION").worksheet("industry_todo")
 ##############################################################
-start_value = 2
-end_value = 11
+start_value = 1
+end_value = 5000
 ##############################################################
 ##############################################################
 
@@ -23,21 +25,27 @@ headers = {
 }
 
 for i in range(start_value, end_value+1):
-    name = sh.acell("c"+str(i)).value
+    time.sleep(2)
+    name = sh.acell("a"+str(i)).value
     #print(name)
 
-    url = "http://"+name
+    url = "http://"+str(name)
+    try:
+        response = requests.get(url, headers=headers, timeout=10)
 
-    response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            soup = BeautifulSoup(response.content, "html.parser")
+            text = soup.get_text(separator=" ").strip()
+            clean_text = "\n".join(line.strip() for line in text.splitlines() if line.strip())
 
-    if response.status_code == 200:
-        soup = BeautifulSoup(response.content, "html.parser")
-        text = soup.get_text(separator=" ").strip()
-        clean_text = "\n".join(line.strip() for line in text.splitlines() if line.strip())
+            response = classify(clean_text)
+            #print(response)
+            sh.update_acell("b"+str(i),response)
 
-        response = classify(clean_text)
-        #print(response)
-        sh.update_acell("d"+str(i),response)
-
-    else:
-        print(f"Nie udało się pobrać strony. Kod statusu: {response.status_code}")
+        else:
+            print(f"Cannot download site. Code: {response.status_code}")
+    except requests.exceptions.HTTPError as err:
+        print(f"HTTP error: {err} (Status: {response.status_code})")
+    except requests.exceptions.RequestException as e:
+        print(f"Request error: {e}")
+    except: print("Tell me why...")
