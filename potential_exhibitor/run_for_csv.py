@@ -1,5 +1,5 @@
 import csv
-from llm import evaluate_exhibitor
+from llm_deepseek import evaluate_exhibitor
 from scrap import scrape_deep_description
 import json
 
@@ -114,4 +114,4 @@ def process_csv(input_path: str, output_path: str):
 
 
 if __name__ == "__main__":
-    process_csv('input2.csv', 'output.csv')
+    process_csv('input.csv', 'output.csv')

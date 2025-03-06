@@ -1,17 +1,19 @@
-from openai import OpenAI
 import json
 from scrap import scrape_deep_description
 from dotenv import load_dotenv
+from transformers import AutoTokenizer, AutoModelForCausalLM
+import torch
+
 load_dotenv()
-import os
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-
+# Wczytaj model DeepSeek-R1 z Hugging Face
+model_name = "deepseek-ai/DeepSeek-R1"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForCausalLM.from_pretrained(model_name, trust_remote_code=True)
 
 def load_prompt_from_file(file_path: str) -> str:
     with open(file_path, "r", encoding="utf-8") as file:
         return file.read()
-
 
 def evaluate_exhibitor(domain: str, description: str) -> dict:
     prompt_template = load_prompt_from_file("prompt.txt")
@@ -20,15 +22,16 @@ def evaluate_exhibitor(domain: str, description: str) -> dict:
             domain=domain,
             description=description if description else "N/A"
         )
-        response = client.chat.completions.create(
-            model="gpt-4-turbo-preview",
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0,
-            response_format={"type": "json_object"}
-        )
+
+        # Tokenizacja promptu i generowanie odpowiedzi
+        inputs = tokenizer(prompt, return_tensors="pt", max_length=512, truncation=True)
+        outputs = model.generate(**inputs, max_length=512, num_return_sequences=1)
+
+        # Dekodowanie odpowiedzi
+        response_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
 
         try:
-            return json.loads(response.choices[0].message.content)
+            return json.loads(response_text)
         except json.JSONDecodeError:
             return {"error": "Invalid JSON response"}
     else:
@@ -45,16 +48,11 @@ def evaluate_exhibitor(domain: str, description: str) -> dict:
         except json.JSONDecodeError as e:
             return {"error": f"Invalid JSON: {str(e)}"}
 
-
-
-'''
+# Przykład użycia
 domain = "decathlon.com"
 result = evaluate_exhibitor(
     domain=domain,
     description=scrape_deep_description(domain),
-    revenue="6862000,00",
-    alexa_rank="53504"
 )
 
 print(json.dumps(result, indent=2))
-'''
