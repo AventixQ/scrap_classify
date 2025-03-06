@@ -15,7 +15,7 @@ gc = gspread.service_account(filename=os.getenv("CREDS_FILE"))
 sh = gc.open("INDUSTRY_CLASSIFICATION").worksheet("industry_todo")
 ##############################################################
 start_value = 1
-end_value = 5000
+end_value = 6000
 ##############################################################
 ##############################################################
 

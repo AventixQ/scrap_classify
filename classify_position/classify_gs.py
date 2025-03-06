@@ -49,7 +49,7 @@ def classify_position(position):
         if any(word in position for word in ["owner", "ceo", "founder"]):
             predicted_category = "ceo & founder & owner"
             confidence_score=1
-        elif "e-commerce" in position:
+        elif any(word in position for word in ["e-commerce", "ecommerce"]):
             predicted_category = "e-commerce"
             confidence_score=1
         elif any(word in position for word in ["marketing", "content", "media", "creative"]):
@@ -61,10 +61,10 @@ def classify_position(position):
         elif "product" in position:
             predicted_category = "product"
             confidence_score=1
-        elif "sales" in position:
+        elif any(word in position for word in ["sales", "sdr"]):
             predicted_category = "sales"
             confidence_score=1
-        elif "operation" in position:
+        elif any(word in position for word in ["operations"]):
             predicted_category = "operations"
             confidence_score=1
         elif any(word in position for word in ["it", "engineer", "enginereeing", "techical", "computer", "scientist"]):

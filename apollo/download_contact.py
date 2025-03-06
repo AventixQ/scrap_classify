@@ -10,7 +10,7 @@ load_dotenv()
 
 API_KEY = os.getenv("APOLLO_API_KEY")
 
-#url = "https://api.apollo.io/api/v1/mixed_people/search?contact_email_status[]=verified&label_ids[]=677fb28e56c59203edceb33a"
+url = "https://api.apollo.io/api/v1/mixed_people/search?contact_email_status[]=verified&label_ids[]=67c0610a1ee681000d0cadc2"
 #url = "https://api.apollo.io/api/v1/mixed_people/search?person_titles[]=sales%20development%20representative&organization_locations[]=berlin"
 #url = "https://api.apollo.io/api/v1/mixed_people/search?person_locations[]=berlin"
 #url = "https://api.apollo.io/api/v1/mixed_people/search?person_locations[]=berlin&contact_email_status[]=verified&organization_ids[]=672b3e612fc02401b0d7bc9f"
@@ -24,7 +24,7 @@ API_KEY = os.getenv("APOLLO_API_KEY")
 #URL for TOTAL: mixed_people
 #URL for Net New: mixed_people with prospected_by_current_team[]=no
 #URL for Saved: contacts ???
-url = 'https://api.apollo.io/api/v1/mixed_people/search?person_seniorities[]=entry&person_locations[]=berlin&contact_email_status[]=verified&prospected_by_current_team[]=no'
+#url = 'https://api.apollo.io/api/v1/mixed_people/search?person_seniorities[]=owner&person_seniorities[]=c_suite&person_seniorities[]=director&person_seniorities[]=vp&person_seniorities[]=founder&person_seniorities[]=partner&person_seniorities[]=head&person_locations[]=hamburg&contact_email_status[]=verified&prospected_by_current_team[]=no'
 
 headers = {
     "Content-Type": "application/json",
@@ -73,7 +73,7 @@ with open(filename, mode='w', newline='', encoding='utf-8') as file:
         
         if response.status_code == 200:
             data = response.json()
-            contacts = data.get("people", []) #contacts for labels | people for other
+            contacts = data.get("contacts", []) #contacts for labels | people for other
             
             if not contacts:
                 print("Nothing here")
