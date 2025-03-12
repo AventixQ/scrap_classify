@@ -6,3 +6,8 @@ pandas
 transformers
 openpyxl
 torch
+accelerate
+sympy==1.12
+pebble 
+timeout-decorator 
+attrdict
