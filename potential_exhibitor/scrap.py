@@ -2,11 +2,16 @@ import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 
-
 def get_about_page_url(domain: str) -> str:
     """Znajduje URL strony 'About' na podstawie homepage."""
     try:
-        response = requests.get(f"https://{domain}", headers={'User-Agent': 'Mozilla/5.0'}, timeout=10)
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3',
+            'Referer': 'https://www.google.com/',
+            'Accept-Language': 'en-US,en;q=0.5',
+            'Accept-Encoding': 'gzip, deflate, br',
+        }
+        response = requests.get(f"https://{domain}", headers=headers, timeout=10)
         soup = BeautifulSoup(response.text, 'html.parser')
 
         about_keywords = ['about', 'story', 'company', 'mission', 'team', 'nas', 'o-nas']
@@ -27,14 +32,19 @@ def get_about_page_url(domain: str) -> str:
         print(f"Błąd szukania strony About dla {domain}: {str(e)}")
         return None
 
-
 def scrape_deep_description(domain: str) -> str:
     """Pobiera treść ze strony About (jeśli istnieje), w przeciwnym razie z homepage."""
     try:
         about_url = get_about_page_url(domain)
         target_url = about_url if about_url else f"https://{domain}"
 
-        response = requests.get(target_url, headers={'User-Agent': 'Mozilla/5.0'}, timeout=15)
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3',
+            'Referer': 'https://www.google.com/',
+            'Accept-Language': 'en-US,en;q=0.5',
+            'Accept-Encoding': 'gzip, deflate, br',
+        }
+        response = requests.get(target_url, headers=headers, timeout=15)
         soup = BeautifulSoup(response.text, 'html.parser')
 
         content = soup.find('article') or soup.find('main') or soup.body
@@ -53,5 +63,5 @@ def scrape_deep_description(domain: str) -> str:
 
 
 # Test
-#description = scrape_deep_description("sparcktechnologies.com")
+#description = scrape_deep_description("sap.com")
 #print(description)

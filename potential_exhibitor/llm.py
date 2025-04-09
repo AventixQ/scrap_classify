@@ -21,7 +21,7 @@ def evaluate_exhibitor(domain: str, description: str) -> dict:
             description=description if description else "N/A"
         )
         response = client.chat.completions.create(
-            model="gpt-4-turbo-preview",
+            model="gpt-4o-mini",
             messages=[{"role": "user", "content": prompt}],
             temperature=0,
             response_format={"type": "json_object"}
@@ -52,8 +52,6 @@ domain = "decathlon.com"
 result = evaluate_exhibitor(
     domain=domain,
     description=scrape_deep_description(domain),
-    revenue="6862000,00",
-    alexa_rank="53504"
 )
 
 print(json.dumps(result, indent=2))

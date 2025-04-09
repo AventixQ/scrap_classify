@@ -125,7 +125,6 @@ def process_csv(input_path: str, output_path: str):
                     total_score = llm_score + alexa_score + revenue_score
                     total_score = round(total_score * 100 / sufix_points,2)
 
-                # Formatowanie reasons
                 reasons_str = ",".join(llm_result.get('reasons', [])).replace(" ", "_")
 
                 writer.writerow([
@@ -145,4 +144,4 @@ def process_csv(input_path: str, output_path: str):
 
 
 if __name__ == "__main__":
-    process_csv('input.csv', 'output.csv')
+    process_csv('input2.csv', 'output2.csv')

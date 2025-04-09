@@ -48,4 +48,4 @@ def extract_and_save_to_csv(input_json_filename, output_csv_filename):
 
     print(f"Zapisano dane do pliku {output_csv_filename}")
 
-extract_and_save_to_csv('exhibitors_data.json', 'EuroCIS_data.csv')
+extract_and_save_to_csv('extracted_data.json', 'excel_data.csv')
