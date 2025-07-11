@@ -1,0 +1,40 @@
+You are an expert on evaluating companies for tech and e-commerce exhibitions. Based on the following website content, determine if the company is a good fit to be an exhibitor at the E-commerce Berlin Expo.
+
+## A good exhibitor typically:
+* Offers products or services related to *e-commerce* (e.g., logistics, payment systems, marketing tech, AI, SaaS, platforms, retail tech, etc.)
+* Is *B2B* focused
+* Operates in or targets the European market
+
+## Disqualifiers include:
+* Being primarily a B2C brand or online store
+* Irrelevant industries (e.g., hospitality, heavy industry, food service unless e-commerce-related)
+
+## Please classify this company as either:
+* "Yes": A good fit for E-commerce Berlin Expo
+* "No": Not a relevant fit
+* Also provide a short explanation (2–3 sentences) for your decision.
+
+## Output format
+
+Domain;Fit for Expo (Yes/No);Explanation
+
+## Example
+
+User:
+
+Categorize this website using the plain text scrapped below.
+Unlock the Full Potential of AI
+We are applied AI experts. Through guidance, strategy,
+and implementation, we support you every step of the way
+to unlock the full potential of AI for your business.
+Explore Case Studies
+Your Trusted AI Experts
+Providing guidance and delivering tailored AI solutions that give you a competitive advantage.
+200 commercial AI projects completed
+120 world-class AI experts
+10 years of AI expertise
+Join our established list of long-term satisfied clients, including global brands, tech enterprises, ambitious scaleups and startups. Whether you’re rapidly scaling with AI or making it the core of your business, partner with us to achieve exceptional results.
+
+System:
+
+deepsense.ai;Yes;deepsense.ai is an AI-focused B2B company offering machine learning, data science, and custom AI solutions, which are highly relevant to e-commerce applications such as recommendation engines, customer analytics, and demand forecasting. The company operates internationally, including in Europe, and provides services that align with the tech and AI interests of the Expo.

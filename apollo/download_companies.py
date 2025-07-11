@@ -9,7 +9,9 @@ load_dotenv()
 
 API_KEY = os.getenv("APOLLO_API_KEY")
 
-url = "https://api.apollo.io/api/v1/mixed_companies/search?account_label_ids[]=67c8648c86bd160021ef8b86"
+#url = "https://api.apollo.io/api/v1/mixed_companies/search?account_label_ids[]=67c8648c86bd160021ef8b86"
+#url = "https://api.apollo.io/api/v1/mixed_companies/search?organization_num_employees_ranges[]=11%2C20&organization_num_employees_ranges[]=201%2C999999&organization_locations[]=netherlands"
+url = "https://api.apollo.io/api/v1/mixed_companies/search?organization_num_employees_ranges[]=21%2C200&organization_locations[]=netherlands"
 
 headers = {
     "Content-Type": "application/json",
@@ -46,7 +48,7 @@ with open(filename, mode='w', newline='', encoding='utf-8') as file:
         if response.status_code == 200:
             data = response.json()
             #print(data)
-            companies = data.get("accounts", [])
+            companies = data.get("accounts", []) + data.get("organizations", []) # accounts
 
             if not companies:
                 print("No more companies to fetch.")

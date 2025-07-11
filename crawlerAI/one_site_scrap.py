@@ -5,13 +5,19 @@ import requests
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 from openai import OpenAI
+import time
 
 load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
-INPUT_CSV = "links.csv"  # Plik CSV z linkami (każdy link w nowym wierszu)
+headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+    "Accept-Language": "en-US,en;q=0.9",
+}
+
+INPUT_CSV = "links_to_scrap.csv"  # Plik CSV z linkami (każdy link w nowym wierszu)
 OUTPUT_JSON = "extracted_data.json"
 
 def extract_details(page_html):
@@ -20,14 +26,16 @@ def extract_details(page_html):
     Extract the following details from the given HTML:
     - Company Name
     - Company Domain
+    - Email
     - Phone Number
     - Address
     - Hall Number
     - Stand Number
     - Description
+    - Linkedin link
     Provide the data in JSON format.
     HTML:
-    {page_html}
+    {page_html[:127000]}
     """
     
     response = client.chat.completions.create(
@@ -41,7 +49,7 @@ def extract_details(page_html):
 def fetch_page_html(url):
     """ Pobiera stronę w postaci HTML. """
     try:
-        response = requests.get(url, timeout=10)
+        response = requests.get(url, headers=headers,timeout=10)
         response.raise_for_status()
         return response.text
     except requests.RequestException as e:
@@ -61,13 +69,14 @@ def scrape_links():
         if html_content:
             data = extract_details(html_content)
             extracted_data.append({"url": url, "data": data})
-            print(html_content)
+            #print(html_content)
             
             with open(OUTPUT_JSON, "a", encoding="utf-8") as f:
                 json.dump({"url": url, "data": data}, f, indent=4, ensure_ascii=False)
                 f.write(",\n")  # Dodanie nowej linii do JSON
                 f.flush()  # Wymuszenie zapisu na dysk
             print(f"Processed {i}/{len(urls)}: {url}")
+            time.sleep(3)
         else:
             print(f"Failed to fetch: {url}")
     

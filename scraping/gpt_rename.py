@@ -9,7 +9,7 @@ def load_prompt(file_path):
     with open(file_path, 'r') as file:
         return file.read()
     
-prompt = load_prompt('awards_prompt.txt')
+prompt = load_prompt('rename.txt')
 
 def classify(text):
     completion = client.chat.completions.create(
@@ -19,8 +19,7 @@ def classify(text):
         {"role": "system", "content": prompt},
         {"role": "user", "content":
     f'''
-    Categorize this website using the plain text scrapped below.
-    {text}
+    Exclude company name from this text: {text}
     '''
         }
     ]

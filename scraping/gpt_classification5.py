@@ -9,7 +9,7 @@ def load_prompt(file_path):
     with open(file_path, 'r') as file:
         return file.read()
     
-prompt = load_prompt('sp_shop_prompt.txt')
+prompt = load_prompt('categorize_ecommerce.txt')
 
 def classify(text):
     completion = client.chat.completions.create(

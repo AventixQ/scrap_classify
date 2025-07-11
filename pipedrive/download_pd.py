@@ -5,10 +5,10 @@ import os
 load_dotenv()
 
 API_TOKEN = os.getenv("PD_API_KEY")
-BASE_URL = 'https://api.pipedrive.com/v1/deals?filter_id=142'
+BASE_URL = 'https://api.pipedrive.com/v1/deals'
 PARAMS = {
     'api_token': API_TOKEN,
-    'limit': 100,
+    'limit': 500,
     'start': 0
 }
 
