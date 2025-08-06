@@ -9,16 +9,19 @@ from urllib.parse import urlparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from dotenv import load_dotenv
+
+load_dotenv()
 
 with open("keywords.yaml", "r", encoding="utf-8") as f:
     keyword_patterns = yaml.safe_load(f)
 
 gc = gspread.service_account(filename=os.getenv("CREDS_FILE"))
-sh = gc.open("EBE 26 - similiar companies to commercetools").worksheet("class")
+sh = gc.open("EBE26 - Visitors classification").worksheet("All visitors companies")
 
-start_value = 1
-end_value = 1200
-bucket_size = 200
+start_value = 12802
+end_value = 13000
+bucket_size = 195
 max_threads = 25
 
 headers = {
@@ -109,8 +112,8 @@ for bucket_start in range(start_value, end_value + 1, bucket_size):
                 results[futures[future]] = "Error"
                 stats[futures[future]] = "Error"
 
-    update_range_E = f"B{bucket_start}:B{bucket_end}"
-    update_range_F = f"C{bucket_start}:C{bucket_end}"
+    update_range_E = f"D{bucket_start}:D{bucket_end}"
+    update_range_F = f"E{bucket_start}:E{bucket_end}"
     result_list_E = [[""] for _ in range(bucket_size)]
     result_list_F = [[""] for _ in range(bucket_size)]
 
