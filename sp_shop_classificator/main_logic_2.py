@@ -20,8 +20,8 @@ from openai import OpenAI
 load_dotenv()
 
 # ---------- CONFIG ----------
-START_ROW          = 15600
-END_ROW            = 25299
+START_ROW          = 25201
+END_ROW            = 25298
 BUCKET_SIZE        = 100
 MAX_THREADS        = 5
 REQUEST_TIMEOUT    = 10

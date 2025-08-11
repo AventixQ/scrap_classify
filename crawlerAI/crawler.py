@@ -17,7 +17,7 @@ output_file = "exhibitors_data.json"
 final_data_file = "result.csv"
 links_to_scrap_file = "links_to_scrap.csv"  # Plik CSV z linkami do scrapowania
 
-BASE_URL = "https://vivatechnology.com/partners"
+BASE_URL = "https://www.omt.de/experte/"
 
 prompt_exhibit = '''
 Extract the following details from the given HTML:
@@ -48,7 +48,7 @@ Extract the following details from the given HTML:
 async def extract_details(page_html):
     """Użycie GPT-4o mini do ekstrakcji szczegółowych danych."""
     prompt = f"""
-    {prompt_exhibit}
+    {prompt_speaker}
     Provide the data in JSON format.
     HTML:
     {page_html[:127000]}
@@ -86,7 +86,7 @@ async def main():
 
         # Filtruj wyniki i zbierz linki
         filtered_results = [result for result in results if 
-                            "https://vivatechnology.com/partners/" in result.url]
+                            "https://www.omt.de/experte/" in result.url]
         
         print(f"Filtered {len(filtered_results)} pages in total")
 
