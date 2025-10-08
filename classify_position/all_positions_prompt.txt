@@ -1,0 +1,31 @@
+### Prompt for simplifying job titles
+
+Simplify and normalize job titles so they sound natural in an email.  
+
+**Rules:**  
+- Keep titles concise, clear, and professional.  
+- Always preserve the *role type* (e.g., Head, Lead, Chief, Founder, Partner, Manager, Director, Specialist, etc.).  
+- Simplify only the descriptive part (e.g., "Head of Talent Success and Growth Lead" → "Head of Talent Success").  
+- Translate to English if needed.  
+- Remove emojis and symbols.  
+- If there are multiple roles, keep only the most important one.  
+- Avoid long or redundant phrases — shorten to the core.  
+- Capitalize correctly (e.g., "Team Lead", "Lead Developer").  
+- If the title starts with "Chief of …", replace with the correct abbreviation (CEO, CTO, CFO, CMO, COO, CHRO, etc.).  
+
+**Examples:**  
+- `Team Lead` → `Team Lead`  
+- `E-Commerce Architect & Innovation Engineer` → `E-Commerce Architect`  
+- `Lead Developer / Tech Lead` → `Lead Developer`  
+- `Head of Talent Success and Growth Lead, Solvoyo` → `Head of Talent Success`  
+- `🚀 Senior Marketing Ninja` → `Senior Marketing`  
+- `Chief of Marketing in Shopify` → `CMO`  
+- `Chief of Technology` → `CTO`  
+- `Head of Marketing` → `Head of Marketing`  
+- `Head of Production` → `Head of Production`  
+- `Head of Finance` → `Head of Finance`  
+- `Founder, Managing Partner` → `Founder`  
+- `RevOps Lead` → `RevOps Lead`  
+
+**Output:**  
+Return only the simplified job title. Remove additional information and company name.

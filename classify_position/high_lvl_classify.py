@@ -11,16 +11,16 @@ load_dotenv()
 
 MAX_THREADS = 25
 START_ROW = 1
-END_ROW = 3403
+END_ROW = 50
 BUCKET_SIZE = 200
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 gc = gspread.service_account(filename=os.getenv("CREDS_FILE"))
-sheet = gc.open("EBE26 - Similar to Braze").worksheet("Position")
+sheet = gc.open("EBE26 - Similar to Luigis Box managers").worksheet("Position")
 
 def load_prompt():
-    with open("prompt.txt", "r", encoding="utf-8") as f:
+    with open("all_positions_prompt.txt", "r", encoding="utf-8") as f:
         return f.read()
 
 SYSTEM_PROMPT = load_prompt()
@@ -49,7 +49,7 @@ def detect_category(position: str) -> str:
     return None
 
 def query_llm(position: str) -> str:
-    user_prompt = f"Categorize correctly this position: {position}"
+    user_prompt = f"Rename this position: {position}. Remamber to leave in title lvl and department of position"
     try:
         response = client.chat.completions.create(
             model="gpt-4o-mini",
@@ -60,7 +60,7 @@ def query_llm(position: str) -> str:
             temperature=0,
         )
         content = response.choices[0].message.content.strip()
-        return content.split()[0]
+        return content
     except Exception as e:
         print(f"LLM error for position {position}: {e}")
         return "error"
