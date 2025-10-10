@@ -11,10 +11,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # =================== CONFIG ===================
-SHEET_NAME  = "EBE26 - Similar to Luigis Box managers"
+SHEET_NAME  = "EBE9 - New visitors campaigns"
 WORKSHEET   = "Position2"
-START_ROW   = 1
-END_ROW     = 50
+START_ROW   = 28951
+END_ROW     = 32162
 BATCH_SIZE  = 200
 MIN_SCORE   = 0.55
 CACHE_PATH  = os.getenv("CLASSIFY_CACHE_JSON", "classify_cache.json")

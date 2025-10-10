@@ -10,8 +10,8 @@ load_dotenv()
 
 API_KEY = os.getenv("APOLLO_API_KEY")
 
-url = "https://api.apollo.io/api/v1/mixed_people/search?label_ids[]=684acfc9d92f8500217099ef"
-
+url = "https://api.apollo.io/api/v1/mixed_people/search?label_ids[]=68c28d1523401a00193e37d7"
+#url = 'https://api.apollo.io/api/v1/mixed_people/search?person_titles[]=marketing%20manager&person_titles[]=sales%20manager&person_locations[]=berlin#&contact_email_status[]=verified'
 ## Poprzednie url do wglądu
 #url = "https://api.apollo.io/api/v1/mixed_people/search?person_locations[]=europe&organization_locations[]=europe&prospected_by_current_team[]=no&contact_email_status[]=verified&organization_num_employees_ranges[]=11%2C500&person_seniorities[]=c_suite&person_seniorities[]=partner&person_seniorities[]=owner&person_seniorities[]=vp&person_seniorities[]=head&person_seniorities[]=director&person_seniorities[]=founder&person_department_or_subdepartments[]=c_suite&person_department_or_subdepartments[]=master_marketing&person_department_or_subdepartments[]=master_sales&q_organization_keyword_tags[]=ecommerce&q_organization_keyword_tags[]=commerce&organization_industry_tag_ids[]=5567cd4773696439b10b0000&organization_industry_tag_ids[]=5567cd467369644d39040000"
 #url = "https://api.apollo.io/api/v1/mixed_people/search?person_locations[]=europe&organization_locations[]=europe&prospected_by_current_team[]=no&contact_email_status[]=verified&organization_num_employees_ranges[]=11%2C500&person_seniorities[]=c_suite&person_seniorities[]=partner&person_seniorities[]=owner&person_seniorities[]=vp&person_seniorities[]=head&person_seniorities[]=director&person_seniorities[]=founder&person_department_or_subdepartments[]=c_suite&person_department_or_subdepartments[]=master_marketing&person_department_or_subdepartments[]=master_sales&person_not_titles[]=account%20manager&person_not_titles[]=seo&person_not_titles[]=digital&person_not_titles[]=cfo"
@@ -97,7 +97,7 @@ with open(filename, mode='w', newline='', encoding='utf-8') as file:
                 linkedin_url = contact.get('linkedin_url', '')
                 city = contact.get('city', '')
                 country = contact.get('country', '')
-                #email = contact.get('email', '')
+                email = contact.get('email', '')
                 phone = contact.get('sanitized_phone', '')
                 confidence_score = -1
                 status = "not_in_hunter"

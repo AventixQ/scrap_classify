@@ -10,14 +10,14 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 load_dotenv()
 
 MAX_THREADS = 25
-START_ROW = 1
-END_ROW = 50
+START_ROW   = 28951
+END_ROW     = 32162
 BUCKET_SIZE = 200
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 gc = gspread.service_account(filename=os.getenv("CREDS_FILE"))
-sheet = gc.open("EBE26 - Similar to Luigis Box managers").worksheet("Position")
+sheet = gc.open("EBE9 - New visitors campaigns").worksheet("Position")
 
 def load_prompt():
     with open("all_positions_prompt.txt", "r", encoding="utf-8") as f:

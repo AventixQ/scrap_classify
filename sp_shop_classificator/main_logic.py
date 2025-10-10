@@ -20,8 +20,8 @@ from openai import OpenAI
 load_dotenv()
 
 # ---------- CONFIG ----------
-START_ROW          = 2
-END_ROW            = 600
+START_ROW          = 71
+END_ROW            = 537
 BUCKET_SIZE        = 100
 MAX_THREADS        = 5
 REQUEST_TIMEOUT    = 10
@@ -32,7 +32,7 @@ LLM_PROMPT_TEMPLATE = "llm_prompt.txt"
 
 # ---------- GOOGLE SHEETS ----------
 gc = gspread.service_account(filename=os.getenv("CREDS_FILE"))
-sh = gc.open("EBE26 - Linkedin Connections - K5 Group").worksheet("All_companies")
+sh = gc.open("EBE26 - Registered visitors (24.09) with classification").worksheet("classification")
 
 # ---------- OPENAI ----------
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))

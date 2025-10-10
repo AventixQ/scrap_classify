@@ -17,7 +17,7 @@ output_file = "exhibitors_data.json"
 final_data_file = "result.csv"
 links_to_scrap_file = "links_to_scrap.csv"  # Plik CSV z linkami do scrapowania
 
-BASE_URL = "https://www.omt.de/experte/"
+BASE_URL = "https://www.trustedshops.de/shops/"
 
 prompt_exhibit = '''
 Extract the following details from the given HTML:
@@ -86,7 +86,7 @@ async def main():
 
         # Filtruj wyniki i zbierz linki
         filtered_results = [result for result in results if 
-                            "https://www.omt.de/experte/" in result.url]
+                            "https://www.trustedshops.de/shops/" in result.url]
         
         print(f"Filtered {len(filtered_results)} pages in total")
 
